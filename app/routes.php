@@ -13,6 +13,5 @@
 Route::get('/', 'HomeController@showWelcome');
 Route::get('login', 'AuthController@showLogin');
 Route::post('login', 'AuthController@postLogin');
+Route::post('product/save', 'ProductController@save');
 Route::get('logout', 'AuthController@logOut');
-
-    
