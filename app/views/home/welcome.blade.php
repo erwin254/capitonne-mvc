@@ -12,9 +12,9 @@
             {{ Session::get('mensaje_error') }}
         @endif
         {{ Form::open(array('url' => '/login')) }}
-            {{ Form::text('username', Input::old('username')); }}
+            {{ Form::text('username'); }}
             {{ Form::password('password'); }}
-            {{ Form::submit('Enviar') }}
+            {{ Form::submit('Enviar'); }}
         {{ Form::close() }}
 @endsection
 @section('body')

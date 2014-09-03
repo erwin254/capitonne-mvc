@@ -7,9 +7,9 @@ class UserTableSeeder extends Seeder {
     public function run(){
         User::create(array(
             'username'  => 'admin',
-            'email'     => 'admin@admin.com',
+            'email'     => 'erwin254@gmail.com',
             'name'=> 'Administrator',
-            'password' => Hash::make('admin') // Hash::make() nos va generar una cadena con nuestra contraseña encriptada
+            'password' => Hash::make('paralelepipedo') // Hash::make() nos va generar una cadena con nuestra contraseña encriptada
         ));
     }
 }
