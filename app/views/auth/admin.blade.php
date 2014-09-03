@@ -1,43 +1,45 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Laravel PHP Framework</title>
-</head>
-<body>
-    <div class="welcome">
-        <h1>Bienvenido {{ Auth::user()->name; }}</h1>
-        <a href="/logout">Cerrar sesión.</a>
-    </div>
-    <section>
-        {{ Form::open(array('url' => '/product/save', 'method' => 'post', 'enctype'=>'multipart/form-data')) }}
-        	{{ Form::label('name', 'Nombre '); }}
-            {{ Form::text('name'); }}
-            {{ Form::label('description', 'Descripción '); }}
-            {{ Form::text('description'); }}
-            {{ Form::label('price', 'Valor '); }}
-            {{ Form::text('price'); }}
-            {{ Form::label('price_offer', 'valor Oferta'); }}
-            {{ Form::text('price_offer'); }}
-            {{ Form::label('link', 'Link Facebook'); }}
-            {{ Form::text('link'); }}
-            {{ Form::label('image', 'adjuntar imagen'); }}
-            {{ Form::file('image'); }}
-            {{ Form::submit('Enviar') }}
-        {{ Form::close() }}
-    </section>
-    <section id="products">
-        @foreach ($productos as $producto)
-            <article>
-                <figure>
+@extends('layout')
+@section('head')
+    {{ HTML::style('css/admin/bootstrap.min.css') }}
+    {{ HTML::style('css/admin/home.css') }}
+@endsection
+@section("title")
+    Sistema de Administración de Productos
+@endsection
+@section('login')
+    <div class="alinear uh-name">{{ Auth::user()->name; }}</div>
+    <div class="alinear uh-logout"><a href="{{URL::to('/logout')}}">Cerrar sesión</a></div>
+@endsection
+@section('body')
+    <div class="col-md-12">
+        <div class="row">
+            <div id="subir_producto"><a href="/upload">Subir producto</a></div>  
+        </div>
+        <div class="row buscador center">
+            <div class="input-group col-md-6">
+                <input type="text" class="form-control" placeholder="Buscar repuestos, accesorios, vestuario ...  ">
+                <span class="input-group-btn" >
+                    <button class="btn btn-default btn-danger" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+            
+        </div>      
+        <div class="row products">
+            @foreach ($productos as $producto)
+            <article class="col-md-3 product">
+                <div class="pr_name"><h2>{{$producto->name}}</h2></div>
+                <figure class="pr_image">
                     <img src="image/300x300/{{$producto->image}}">
-                    <figcaption>{{$producto->description}}</figcaption>
                 </figure>
-                <div>{{$producto->name}}</div>
-                <div>Precio {{$producto->price}}</div>
-                <div>precio OFERTA {{$producto->price_offer}}</div>            
+                <div class="pr_detalle">{{$producto->description}}</div>
+                <div class="pr_valores">
+                    <div class="pr_precio">
+                        Precio <span>{{$producto->price}}</span>
+                        <div class="pr_oferta">{{$producto->price_offer}}</div>
+                    </div>
+                </div>           
             </article>            
-        @endforeach
-    </section>
-</body>
-</html>
+            @endforeach
+        </div>
+    </div>
+@endsection

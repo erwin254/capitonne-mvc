@@ -20,4 +20,11 @@ class AdminController extends BaseController {
 		return View::make('auth/admin');
 	}
 
+	public function upload()
+	{
+		if(!Auth::check()) return Redirect::to('/');
+		return View::make('auth/upload');
+	}
+
+
 }

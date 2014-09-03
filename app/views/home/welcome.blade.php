@@ -1,37 +1,40 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="utf-8">
-        <title>Login</title>
-    </head>
-    <body>
-    <header>
+@extends('layout')
+@section('head')
+    {{ HTML::style('css/admin/bootstrap.min.css') }}
+    {{ HTML::style('css/admin/home.css') }}
+@endsection
+@section("title")
+    Sistema de Administración de Productos
+@endsection
+@section("login")
         {{-- Preguntamos si hay algún mensaje de error y si hay lo mostramos  --}}
         @if(Session::has('mensaje_error'))
             {{ Session::get('mensaje_error') }}
         @endif
         {{ Form::open(array('url' => '/login')) }}
-            {{ Form::label('usuario', 'Nombre de usuario') }}
             {{ Form::text('username', Input::old('username')); }}
-            {{ Form::label('contraseña', 'Contraseña') }}
             {{ Form::password('password'); }}
-            {{ Form::label('lblRememberme', 'Recordar contraseña') }}
-            {{ Form::checkbox('rememberme', true) }}
             {{ Form::submit('Enviar') }}
         {{ Form::close() }}
-    </header>
-    <section id="products">
-        @foreach ($productos as $producto)
-            <article>
-                <figure>
+@endsection
+@section('body')
+    <div class="col-md-12">    
+        <div class="row products">
+            @foreach ($productos as $producto)
+            <article class="col-md-3 product">
+                <div class="pr_name"><h2>{{$producto->name}}</h2></div>
+                <figure class="pr_image">
                     <img src="image/300x300/{{$producto->image}}">
-                    <figcaption>{{$producto->description}}</figcaption>
                 </figure>
-                <div>{{$producto->name}}</div>
-                <div>Precio {{$producto->price}}</div>
-                <div>precio OFERTA {{$producto->price_offer}}</div>            
+                <div class="pr_detalle">{{$producto->description}}</div>
+                <div class="pr_valores">
+                    <div class="pr_precio">
+                        Precio <span>{{$producto->price}}</span>
+                        <div class="pr_oferta">{{$producto->price_offer}}</div>
+                    </div>
+                </div>           
             </article>            
-        @endforeach
-    </section>
-    </body>
-</html>
+            @endforeach
+        </div>
+    </div>
+@endsection
